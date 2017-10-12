@@ -2,11 +2,15 @@ package com.HipTrip.HipTrip;
 
 
 import com.HipTrip.HipTrip.models.Trip;
+import com.HipTrip.HipTrip.models.YelpResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
 
 @RestController
 public class HipTripController {
@@ -16,27 +20,25 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
   private Trip startNewTrip(@RequestBody Trip trip){
-
+    trip.setTripStartDate(LocalDate.now());
     return trip;
   }
 
   @CrossOrigin
-  @RequestMapping(path = "/search/hotel/", method = RequestMethod.GET)
-  private String getHotelsForLocation(){
-    // send api call to yelp using location
+  @RequestMapping(path = "/search/hotel/", method = RequestMethod.POST)
+  private YelpResponse getHotelsForLocation(){
+
     RestTemplate template = new RestTemplate();
-    String url = "https://api.yelp.com/v3/businesses/search?term=hotel&latitude=37.786882&longitude=-122.399972&radius=100";
+    String url = "https://api.yelp.com/v3/businesses/search?term=hotel&latitude=37.786882&longitude=-122.399972&radius=1000";
 
     HttpHeaders headers = new HttpHeaders();
     headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
 
     HttpEntity<String> request = new HttpEntity<>(headers);
 
-    String hotelList = template.exchange(url, HttpMethod.GET, request, String.class).toString();
+    ResponseEntity<YelpResponse> hotelList = template.exchange(url, HttpMethod.GET, request, YelpResponse.class);
 
-//    List<Hotel> hotelList = new ArrayList<>();
-
-    return hotelList;
+    return hotelList.getBody();
   }
 
 }
