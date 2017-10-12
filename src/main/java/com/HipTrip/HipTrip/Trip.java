@@ -1,6 +1,7 @@
 package com.HipTrip.HipTrip;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Trip {
   private int budget;
@@ -10,7 +11,15 @@ public class Trip {
   private int adultCount;
   private int childCount;
   private int id;
+  private ArrayList<Hotel> hotels;
 
+  public ArrayList<Hotel> getHotels() {
+    return hotels;
+  }
+
+  public void setHotels(ArrayList<Hotel> hotels) {
+    this.hotels = hotels;
+  }
 
   public int getBudget() {
     return budget;
@@ -66,6 +75,9 @@ public class Trip {
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public Trip() {
   }
 
   public Trip(int budget, String destination) {

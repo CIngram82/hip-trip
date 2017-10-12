@@ -8,13 +8,9 @@ public class HipTripController {
 
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
-  private Trip startNewTrip(@RequestBody String destination,  int budget){
+  private Trip startNewTrip(@RequestBody Trip trip){
 
-    System.out.println("****** destination ****** " + destination);
-    System.out.println("budget" + 3);
-    Trip t = new Trip(budget,destination);
-    System.out.println(t);
-    return t;
+    return trip;
   }
 
 //  @CrossOrigin
