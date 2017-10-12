@@ -6,7 +6,6 @@ import com.HipTrip.HipTrip.models.YelpResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,9 +35,9 @@ public class HipTripController {
 
     HttpEntity<String> request = new HttpEntity<>(headers);
 
-    ResponseEntity<YelpResponse> hotelList = template.exchange(url, HttpMethod.GET, request, YelpResponse.class);
+    YelpResponse hotelList = template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
 
-    return hotelList.getBody();
+    return hotelList;
   }
 
 }
