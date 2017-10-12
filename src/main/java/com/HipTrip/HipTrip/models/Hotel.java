@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip;
+package com.HipTrip.HipTrip.models;
 
 public class Hotel {
   private String id;

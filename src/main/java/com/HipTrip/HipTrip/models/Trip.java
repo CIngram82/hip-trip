@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip;
+package com.HipTrip.HipTrip.models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
