@@ -5,13 +5,22 @@ import java.util.ArrayList;
 
 public class Trip {
   private int budget;
-  private String destination;
   private LocalDate tripStartDate;
   private LocalDate tripEndDate;
   private int adultCount;
   private int childCount;
   private int id;
   private ArrayList<Hotel> hotels;
+  private String destination;
+  private static int ID_COUNTER = 0;
+
+  public String getDestination() {
+    return destination;
+  }
+
+  public void setDestination(String destination) {
+    this.destination = destination;
+  }
 
   public ArrayList<Hotel> getHotels() {
     return hotels;
@@ -27,14 +36,6 @@ public class Trip {
 
   public void setBudget(int budget) {
     this.budget = budget;
-  }
-
-  public String getDestination() {
-    return destination;
-  }
-
-  public void setDestination(String destination) {
-    this.destination = destination;
   }
 
   public LocalDate getTripStartDate() {
@@ -78,11 +79,13 @@ public class Trip {
   }
 
   public Trip() {
+    this.id = ID_COUNTER++;
   }
 
   public Trip(int budget, String destination) {
     this.budget = budget;
     this.destination = destination;
+    this.id = ID_COUNTER++;
   }
 
   @Override
