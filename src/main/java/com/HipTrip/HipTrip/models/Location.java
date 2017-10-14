@@ -11,8 +11,17 @@ public class Location {
   private String country;
   private String state;
   private ArrayList<String> display_address;
+  private String cross_streets;
 
   public Location() {
+  }
+
+  public String getCross_streets() {
+    return cross_streets;
+  }
+
+  public void setCross_streets(String cross_streets) {
+    this.cross_streets = cross_streets;
   }
 
   public String getAddress1() {

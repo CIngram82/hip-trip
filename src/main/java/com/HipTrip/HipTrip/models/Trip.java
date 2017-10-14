@@ -10,7 +10,7 @@ public class Trip {
   private int adultCount;
   private int childCount;
   private int id;
-  private ArrayList<Hotel> hotels;
+  private ArrayList<BusinessDetails> hotels;
   private String destination;
   private static int ID_COUNTER = 0;
 
@@ -22,12 +22,12 @@ public class Trip {
     this.destination = destination;
   }
 
-  public ArrayList<Hotel> getHotels() {
+  public ArrayList<BusinessDetails> getBusinessDetails() {
     return hotels;
   }
 
-  public void setHotels(ArrayList<Hotel> hotels) {
-    this.hotels = hotels;
+  public void setBusinessDetails(ArrayList<BusinessDetails> businessDetails) {
+    this.hotels = businessDetails;
   }
 
   public int getBudget() {

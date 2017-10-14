@@ -1,6 +1,7 @@
 package com.HipTrip.HipTrip.Controllers;
 
 
+import com.HipTrip.HipTrip.models.BusinessDetails;
 import com.HipTrip.HipTrip.models.Trip;
 import com.HipTrip.HipTrip.models.YelpResponse;
 import org.springframework.http.HttpEntity;
@@ -32,8 +33,8 @@ public class HipTripController {
     HttpHeaders headers = new HttpHeaders();
     headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
     HttpEntity<String> request = new HttpEntity<>(headers);
-    YelpResponse hotelList = template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
-    return hotelList;
+    YelpResponse yr = template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
+    return yr;
   }
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}", method = RequestMethod.GET)
@@ -42,16 +43,27 @@ public class HipTripController {
   }
 
   @CrossOrigin
-  @RequestMapping(path = "/trip/deails/{id}",method = RequestMethod.POST)
+  @RequestMapping(path = "/trip/details/{id}",method = RequestMethod.PUT)
   private Trip addTripDetails(@RequestParam int id, @RequestBody  Trip trip){
-    Trip tripToMod =  tripList.stream().filter( t -> t.getId() ==id).findFirst().get();
+    Trip tripToMod =  tripList.stream().filter( t -> t.getId() == id).findFirst().get();
     tripToMod.setTripStartDate(trip.getTripStartDate());
     tripToMod.setTripEndDate(trip.getTripEndDate());
     tripToMod.setAdultCount(trip.getAdultCount());
     tripToMod.setChildCount(trip.getChildCount());
-    tripToMod.setHotels(new ArrayList<>());
+    tripToMod.setBusinessDetails(new ArrayList<>());
     return tripToMod;
   }
 
+  @CrossOrigin
+  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.GET)
+  private BusinessDetails getTripByID(@RequestParam int id){
+    RestTemplate template = new RestTemplate();
+    String url = "https://api.yelp.com/v3/businesses/"+ id;
+    HttpHeaders headers = new HttpHeaders();
+    headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
+    HttpEntity<String> request = new HttpEntity<>(headers);
+    BusinessDetails bd = template.exchange(url, HttpMethod.GET, request, BusinessDetails.class).getBody();
+    return bd;
+  }
 
 }
