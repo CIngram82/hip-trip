@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip.models;
+package com.HipTrip.HipTrip.models.Trip;
 
 import javax.persistence.*;
 

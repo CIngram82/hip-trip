@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip.models;
+package com.HipTrip.HipTrip.models.YelpAPI;
 
 public class Hours {
   private boolean is_open_now;

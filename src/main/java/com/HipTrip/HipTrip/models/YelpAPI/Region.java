@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip.models;
+package com.HipTrip.HipTrip.models.YelpAPI;
 
 public class Region {
   private Center center;

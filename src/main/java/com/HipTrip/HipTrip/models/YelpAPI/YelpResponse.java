@@ -1,4 +1,4 @@
-package com.HipTrip.HipTrip.models;
+package com.HipTrip.HipTrip.models.YelpAPI;
 
 import java.util.ArrayList;
 

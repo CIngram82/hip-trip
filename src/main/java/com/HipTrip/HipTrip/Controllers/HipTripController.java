@@ -1,9 +1,9 @@
 package com.HipTrip.HipTrip.Controllers;
 
 
-import com.HipTrip.HipTrip.models.BusinessDetails;
-import com.HipTrip.HipTrip.models.Trip;
-import com.HipTrip.HipTrip.models.YelpResponse;
+import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
+import com.HipTrip.HipTrip.models.Trip.Trip;
+import com.HipTrip.HipTrip.models.YelpAPI.YelpResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,6 +37,7 @@ public class HipTripController {
     YelpResponse yr = template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
     return yr;
   }
+
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}", method = RequestMethod.GET)
   private Trip getTripDetails(@PathVariable(value = "id") int id){
@@ -87,4 +88,6 @@ public class HipTripController {
     trip.getBusinessDetails().removeIf(t -> t.getId() == id);
     return trip;
   }
+
+
 }

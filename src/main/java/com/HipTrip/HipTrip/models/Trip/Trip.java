@@ -1,4 +1,6 @@
-package com.HipTrip.HipTrip.models;
+package com.HipTrip.HipTrip.models.Trip;
+
+import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
