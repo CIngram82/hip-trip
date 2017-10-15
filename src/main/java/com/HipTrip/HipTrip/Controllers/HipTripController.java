@@ -21,6 +21,7 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
   private Trip startNewTrip(@RequestBody Trip trip){
+    trip.setBusinessDetails(new ArrayList<>());
     tripList.add(trip);
     return trip;
   }
@@ -38,13 +39,13 @@ public class HipTripController {
   }
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}", method = RequestMethod.GET)
-  private Trip getTripDetails(@RequestParam int id){
-    return tripList.stream().filter( t -> t.getId() ==id).findFirst().get();
+  private Trip getTripDetails(@PathVariable(value = "id") int id){
+    return tripList.stream().filter( t -> t.getId() == id).findFirst().get();
   }
 
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}",method = RequestMethod.PUT)
-  private Trip addTripDetails(@RequestParam int id, @RequestBody  Trip trip){
+  private Trip addTripDetails(@PathVariable(value = "id") int id, @RequestBody  Trip trip){
     Trip tripToMod =  tripList.stream().filter( t -> t.getId() == id).findFirst().get();
     tripToMod.setTripStartDate(trip.getTripStartDate());
     tripToMod.setTripEndDate(trip.getTripEndDate());
@@ -56,7 +57,7 @@ public class HipTripController {
 
   @CrossOrigin
   @RequestMapping(path = "/hotel/{id}",method = RequestMethod.GET)
-  private BusinessDetails getTripByID(@RequestParam int id){
+  private BusinessDetails getHotelByID(@PathVariable(value = "id") String id){
     RestTemplate template = new RestTemplate();
     String url = "https://api.yelp.com/v3/businesses/"+ id;
     HttpHeaders headers = new HttpHeaders();
@@ -66,4 +67,24 @@ public class HipTripController {
     return bd;
   }
 
+  @CrossOrigin
+  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.PUT)
+  private Trip addHotelToTrip(@PathVariable(value = "id") String id,@RequestBody Trip trip){
+    RestTemplate template = new RestTemplate();
+    String url = "https://api.yelp.com/v3/businesses/"+ id;
+    HttpHeaders headers = new HttpHeaders();
+    headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
+    HttpEntity<String> request = new HttpEntity<>(headers);
+    BusinessDetails bd = template.exchange(url, HttpMethod.GET, request, BusinessDetails.class).getBody();
+    tripList.get(trip.getId()).getBusinessDetails().add(bd);
+    return tripList.get(trip.getId());
+  }
+
+  @CrossOrigin
+  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
+  private Trip deleteHotel(@PathVariable(value = "id")String id,@RequestBody Trip trip){
+
+    trip.getBusinessDetails().removeIf(t -> t.getId() == id);
+    return trip;
+  }
 }
