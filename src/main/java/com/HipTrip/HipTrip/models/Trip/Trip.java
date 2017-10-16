@@ -2,13 +2,13 @@ package com.HipTrip.HipTrip.models.Trip;
 
 import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class Trip {
   private int budget;
-  private LocalDate tripStartDate;
-  private LocalDate tripEndDate;
+  private Instant tripStartDate;
+  private Instant tripEndDate;
   private int adultCount;
   private int childCount;
   private int id;
@@ -40,19 +40,19 @@ public class Trip {
     this.budget = budget;
   }
 
-  public LocalDate getTripStartDate() {
+  public Instant getTripStartDate() {
     return tripStartDate;
   }
 
-  public void setTripStartDate(LocalDate tripStartDate) {
+  public void setTripStartDate(Instant tripStartDate) {
     this.tripStartDate = tripStartDate;
   }
 
-  public LocalDate getTripEndDate() {
+  public Instant getTripEndDate() {
     return tripEndDate;
   }
 
-  public void setTripEndDate(LocalDate tripEndDate) {
+  public void setTripEndDate(Instant tripEndDate) {
     this.tripEndDate = tripEndDate;
   }
 
