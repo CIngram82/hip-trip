@@ -45,9 +45,9 @@ public class HipTripController {
 
   @CrossOrigin
   @RequestMapping(path = "/search/{term}/", method = RequestMethod.POST)
-  private YelpResponse getHotelsForLocation(@RequestBody Trip trip){
+  private YelpResponse getHotelsForLocation(@PathVariable(value = "term")String term,@RequestBody Trip trip){
     RestTemplate template = new RestTemplate();
-    String url = "https://api.yelp.com/v3/businesses/search?term=hotel&location=" + trip.getDestination() + "&radius=5000&price=" + trip.getBudget();
+    String url = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + trip.getDestination() + "&radius=5000&price=" + trip.getBudget();
     HttpHeaders headers = new HttpHeaders();
     headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
     HttpEntity<String> request = new HttpEntity<>(headers);
@@ -64,10 +64,12 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}",method = RequestMethod.PUT)
   private Trip addTripDetails(@PathVariable(value = "id") int id, @RequestBody  Trip trip){
-    tripRepo.findOne(id).setTripStartDate(trip.getTripStartDate());
-    tripRepo.findOne(id).setTripEndDate(trip.getTripEndDate());
-    tripRepo.findOne(id).setAdultCount(trip.getAdultCount());
-    tripRepo.findOne(id).setChildCount(trip.getChildCount());
+    Trip t = tripRepo.findOne(id);
+    t.setTripStartDate(trip.getTripStartDate());
+    t.setTripEndDate(trip.getTripEndDate());
+    t.setAdultCount(trip.getAdultCount());
+    t.setChildCount(trip.getChildCount());
+    tripRepo.save(t);
     return tripRepo.findOne(id);
   }
 
@@ -102,13 +104,13 @@ public class HipTripController {
     return tripRepo.findOne(trip.getId());
   }
 
-  @CrossOrigin
-  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
-  private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-  tripRepo.findOne(trip.getId()).getHotels().remove(id);
-
-    return tripRepo.findOne(trip.getId());
-  }
+//  @CrossOrigin
+//  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
+//  private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
+//  tripRepo.findOne(trip.getId()).getHotels().remove(id);
+//
+//    return tripRepo.findOne(trip.getId());
+//  }
 
 
 }
