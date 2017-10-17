@@ -3,7 +3,6 @@ package com.HipTrip.HipTrip.models.DataBase;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -12,9 +11,9 @@ public class Trip {
   @Column
   private int budget;
   @Column
-  private LocalDate tripStartDate;
+  private String tripStartDate;
   @Column
-  private LocalDate tripEndDate;
+  private String tripEndDate;
   @Column
   private int adultCount;
   @Column
@@ -56,19 +55,19 @@ public class Trip {
     this.budget = budget;
   }
 
-  public LocalDate getTripStartDate() {
+  public String getTripStartDate() {
     return tripStartDate;
   }
 
-  public void setTripStartDate(LocalDate tripStartDate) {
+  public void setTripStartDate(String tripStartDate) {
     this.tripStartDate = tripStartDate;
   }
 
-  public LocalDate getTripEndDate() {
+  public String getTripEndDate() {
     return tripEndDate;
   }
 
-  public void setTripEndDate(LocalDate tripEndDate) {
+  public void setTripEndDate(String tripEndDate) {
     this.tripEndDate = tripEndDate;
   }
 
