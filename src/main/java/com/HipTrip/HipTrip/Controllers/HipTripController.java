@@ -1,9 +1,13 @@
 package com.HipTrip.HipTrip.Controllers;
 
 
+import com.HipTrip.HipTrip.models.DataBase.DatabaseBusinessDetails;
+import com.HipTrip.HipTrip.models.DataBase.Trip;
 import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
-import com.HipTrip.HipTrip.models.Trip.Trip;
 import com.HipTrip.HipTrip.models.YelpAPI.YelpResponse;
+import com.HipTrip.HipTrip.repository.BusinessDetailsRepo;
+import com.HipTrip.HipTrip.repository.TripRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,19 +15,32 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class HipTripController {
+  @Autowired
+  TripRepo tripRepo;
+  @Autowired
+  BusinessDetailsRepo businessDetailsRepo;
+
 //  private static final String TOKEN = System.getenv("YELP_API_TOKEN");
     private static final String TOKEN = "Bearer 5XyC6OLI1Rtqv4weHiCPPC7iobApAuAc97McQaMKd6ws4whbXBrBfevH4TWrJy0h0UWfuCHn78lM8U0mS9y3vReTcf3bkT_whgJc1ywxouNSom7UKMc_5xIdPQLdWXYx";
-    private ArrayList<Trip> tripList = new ArrayList<>();
+
 
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
   private Trip startNewTrip(@RequestBody Trip trip){
-    trip.setBusinessDetails(new ArrayList<>());
-    tripList.add(trip);
+    tripRepo.save(trip);
     return trip;
+  }
+
+  @CrossOrigin
+  @RequestMapping(path = "/trip/details", method = RequestMethod.GET)
+  private ArrayList<Trip> getAllTrips(){
+    ArrayList<Trip> t = new ArrayList();
+    tripRepo.findAll().forEach(t::add);
+    return t;
   }
 
   @CrossOrigin
@@ -41,19 +58,17 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}", method = RequestMethod.GET)
   private Trip getTripDetails(@PathVariable(value = "id") int id){
-    return tripList.stream().filter( t -> t.getId() == id).findFirst().get();
+    return tripRepo.findOne(id);
   }
 
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}",method = RequestMethod.PUT)
   private Trip addTripDetails(@PathVariable(value = "id") int id, @RequestBody  Trip trip){
-    Trip tripToMod =  tripList.stream().filter( t -> t.getId() == id).findFirst().get();
-    tripToMod.setTripStartDate(trip.getTripStartDate());
-    tripToMod.setTripEndDate(trip.getTripEndDate());
-    tripToMod.setAdultCount(trip.getAdultCount());
-    tripToMod.setChildCount(trip.getChildCount());
-    tripToMod.setBusinessDetails(new ArrayList<>());
-    return tripToMod;
+    tripRepo.findOne(id).setTripStartDate(trip.getTripStartDate());
+    tripRepo.findOne(id).setTripEndDate(trip.getTripEndDate());
+    tripRepo.findOne(id).setAdultCount(trip.getAdultCount());
+    tripRepo.findOne(id).setChildCount(trip.getChildCount());
+    return tripRepo.findOne(id);
   }
 
   @CrossOrigin
@@ -77,16 +92,22 @@ public class HipTripController {
     headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
     HttpEntity<String> request = new HttpEntity<>(headers);
     BusinessDetails bd = template.exchange(url, HttpMethod.GET, request, BusinessDetails.class).getBody();
-    tripList.get(trip.getId()).getBusinessDetails().add(bd);
-    return tripList.get(trip.getId());
+    DatabaseBusinessDetails dbbd = new DatabaseBusinessDetails();
+    dbbd.setSearchId(bd.getId());
+    Trip butt = tripRepo.findOne(trip.getId());
+    List<DatabaseBusinessDetails> h = butt.getHotels();
+    h.add(dbbd);
+    butt.setHotels(h);
+    tripRepo.save(butt);
+    return tripRepo.findOne(trip.getId());
   }
 
   @CrossOrigin
   @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
-  private Trip deleteHotel(@PathVariable(value = "id")String id,@RequestBody Trip trip){
+  private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
+  tripRepo.findOne(trip.getId()).getHotels().remove(id);
 
-    trip.getBusinessDetails().removeIf(t -> t.getId() == id);
-    return trip;
+    return tripRepo.findOne(trip.getId());
   }
 
 

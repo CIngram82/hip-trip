@@ -1,20 +1,36 @@
-package com.HipTrip.HipTrip.models.Trip;
+package com.HipTrip.HipTrip.models.DataBase;
 
-import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
+import org.hibernate.annotations.Cascade;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "Trips")
 public class Trip {
+  @Column
   private int budget;
+  @Column
   private LocalDate tripStartDate;
+  @Column
   private LocalDate tripEndDate;
+  @Column
   private int adultCount;
+  @Column
   private int childCount;
+  @Id
+  @GeneratedValue
   private int id;
-  private ArrayList<BusinessDetails> hotels;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<DatabaseBusinessDetails> hotels;
+  @Column
   private String destination;
-  private static int ID_COUNTER = 0;
+
+
+
 
   public String getDestination() {
     return destination;
@@ -24,12 +40,12 @@ public class Trip {
     this.destination = destination;
   }
 
-  public ArrayList<BusinessDetails> getBusinessDetails() {
+  public List<DatabaseBusinessDetails> getHotels() {
     return hotels;
   }
 
-  public void setBusinessDetails(ArrayList<BusinessDetails> businessDetails) {
-    this.hotels = businessDetails;
+  public void setHotels(List<DatabaseBusinessDetails> hotels) {
+    this.hotels = hotels;
   }
 
   public int getBudget() {
@@ -81,25 +97,19 @@ public class Trip {
   }
 
   public Trip() {
-    this.id = ID_COUNTER++;
-  }
-
-  public Trip(int budget, String destination) {
-    this.budget = budget;
-    this.destination = destination;
-    this.id = ID_COUNTER++;
   }
 
   @Override
   public String toString() {
     return "Trip{" +
         "budget=" + budget +
-        ", destination='" + destination + '\'' +
         ", tripStartDate=" + tripStartDate +
         ", tripEndDate=" + tripEndDate +
         ", adultCount=" + adultCount +
         ", childCount=" + childCount +
         ", id=" + id +
+        ", hotels=" + hotels +
+        ", destination='" + destination + '\'' +
         '}';
   }
 }
