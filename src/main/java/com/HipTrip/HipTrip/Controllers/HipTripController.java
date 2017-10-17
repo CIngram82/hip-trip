@@ -44,7 +44,7 @@ public class HipTripController {
   }
 
   @CrossOrigin
-  @RequestMapping(path = "/search/hotel/", method = RequestMethod.POST)
+  @RequestMapping(path = "/search/{term}/", method = RequestMethod.POST)
   private YelpResponse getHotelsForLocation(@RequestBody Trip trip){
     RestTemplate template = new RestTemplate();
     String url = "https://api.yelp.com/v3/businesses/search?term=hotel&location=" + trip.getDestination() + "&radius=5000&price=" + trip.getBudget();
