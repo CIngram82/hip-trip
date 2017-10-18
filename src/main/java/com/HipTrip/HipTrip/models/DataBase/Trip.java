@@ -98,6 +98,11 @@ public class Trip {
   public Trip() {
   }
 
+  public Trip(int budget, String destination) {
+    this.budget = budget;
+    this.destination = destination;
+  }
+
   @Override
   public String toString() {
     return "Trip{" +
