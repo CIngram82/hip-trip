@@ -21,16 +21,6 @@ public class YelpApiController {
   @Autowired
   TripRepo tripRepo;
 
-  @CrossOrigin
-  @RequestMapping(path = "/search/{term}", method = RequestMethod.POST)
-  private YelpResponse getTermsForLocation(@PathVariable(value = "term")String term, @RequestBody Trip trip){
-    RestTemplate template = new RestTemplate();
-    String url = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + trip.getDestination() + "&radius=40000";
-    HttpHeaders headers = new HttpHeaders();
-    headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
-    HttpEntity<String> request = new HttpEntity<>(headers);
-    return template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
-  }
 
   @CrossOrigin
   @RequestMapping(path = "/search/hotel", method = RequestMethod.POST)
@@ -42,6 +32,18 @@ public class YelpApiController {
     HttpEntity<String> request = new HttpEntity<>(headers);
     return template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
   }
+
+  @CrossOrigin
+  @RequestMapping(path = "/search/{term}", method = RequestMethod.POST)
+  private YelpResponse getTermsForLocation(@PathVariable(value = "term")String term, @RequestBody Trip trip){
+    RestTemplate template = new RestTemplate();
+    String url = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + trip.getDestination() + "&radius=40000";
+    HttpHeaders headers = new HttpHeaders();
+    headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
+    HttpEntity<String> request = new HttpEntity<>(headers);
+    return template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
+  }
+
 
   @CrossOrigin
   @RequestMapping(path = "/hotel/{id}",method = RequestMethod.GET)
