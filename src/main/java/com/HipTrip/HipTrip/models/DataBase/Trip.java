@@ -24,7 +24,7 @@ public class Trip {
 
   @OneToMany
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
-  private List<DatabaseBusinessDetails> hotels;
+  private List<Hotel> hotels;
   @Column
   private String destination;
 
@@ -39,11 +39,11 @@ public class Trip {
     this.destination = destination;
   }
 
-  public List<DatabaseBusinessDetails> getHotels() {
+  public List<Hotel> getHotels() {
     return hotels;
   }
 
-  public void setHotels(List<DatabaseBusinessDetails> hotels) {
+  public void setHotels(List<Hotel> hotels) {
     this.hotels = hotels;
   }
 

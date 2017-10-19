@@ -1,6 +1,6 @@
 package com.HipTrip.HipTrip.Controllers;
 
-import com.HipTrip.HipTrip.models.DataBase.DatabaseBusinessDetails;
+import com.HipTrip.HipTrip.models.DataBase.Hotel;
 import com.HipTrip.HipTrip.models.DataBase.Trip;
 import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 import com.HipTrip.HipTrip.models.YelpAPI.YelpResponse;
@@ -52,20 +52,16 @@ public class YelpApiController {
   }
 
   @CrossOrigin
-  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.PUT)
-  private Trip addHotelToTrip(@PathVariable(value = "id") String id,@RequestBody Trip trip){
-    BusinessDetails bd = getBizDetails(id);
-    DatabaseBusinessDetails dbbd = new DatabaseBusinessDetails();
-    dbbd.setSearchId(bd.getId());
+  @RequestMapping(path = "/hotel/save",method = RequestMethod.PUT)
+  private Trip addHotelToTrip(@RequestBody Trip trip,BusinessDetails bd){
+    Hotel dbbd = new Hotel(bd);
     trip = tripRepo.findOne(trip.getId());
-    List<DatabaseBusinessDetails> h = trip.getHotels();
+    List<Hotel> h = trip.getHotels();
     h.add(dbbd);
     trip.setHotels(h);
     tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
-
-
 
   private BusinessDetails getBizDetails(String id){
     RestTemplate template = new RestTemplate();
