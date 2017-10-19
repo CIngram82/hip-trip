@@ -24,9 +24,9 @@ public class YelpApiController {
 
   @CrossOrigin
   @RequestMapping(path = "/search/hotel", method = RequestMethod.POST)
-  private YelpResponse getHotelsForLocation(@PathVariable(value = "term")String term, @RequestBody Trip trip){
+  private YelpResponse getHotelsForLocation(@RequestBody Trip trip){
     RestTemplate template = new RestTemplate();
-    String url = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + trip.getDestination() + "&radius=40000&price=" + trip.getBudget();
+    String url = "https://api.yelp.com/v3/businesses/search?term=hotel&location=" + trip.getDestination() + "&radius=40000&price=" + trip.getBudget();
     HttpHeaders headers = new HttpHeaders();
     headers.set(HttpHeaders.AUTHORIZATION, TOKEN);
     HttpEntity<String> request = new HttpEntity<>(headers);
