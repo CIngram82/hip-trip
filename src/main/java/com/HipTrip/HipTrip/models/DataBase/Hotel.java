@@ -32,12 +32,6 @@ public class Hotel {
   private String display_phone;
 
   @Column
-  private float latitude;
-
-  @Column
-  private float longitude;
-
-  @Column
   private String address1;
 
   @Column
@@ -119,22 +113,6 @@ public class Hotel {
     this.display_phone = display_phone;
   }
 
-  public float getLatitude() {
-    return latitude;
-  }
-
-  public void setLatitude(float latitude) {
-    this.latitude = latitude;
-  }
-
-  public float getLongitude() {
-    return longitude;
-  }
-
-  public void setLongitude(float longitude) {
-    this.longitude = longitude;
-  }
-
   public String getAddress1() {
     return address1;
   }
@@ -193,8 +171,6 @@ public class Hotel {
     this.setRating(bd.getRating());
     this.setPrice(bd.getPrice());
     this.setDisplay_phone(bd.getDisplay_phone());
-    this.setLatitude(bd.getCoordinates().getLatitude());
-    this.setLongitude(bd.getCoordinates().getLongitude());
     this.setAddress1(bd.getLocation().getAddress1());
     this.setAddress2(bd.getLocation().getAddress2());
     this.setAddress3(bd.getLocation().getAddress3());
