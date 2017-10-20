@@ -2,6 +2,7 @@ package com.HipTrip.HipTrip.Controllers;
 
 import com.HipTrip.HipTrip.models.DataBase.Hotel;
 import com.HipTrip.HipTrip.models.DataBase.Trip;
+import com.HipTrip.HipTrip.models.DataBase.Trip_add_hotel;
 import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 import com.HipTrip.HipTrip.models.YelpAPI.YelpResponse;
 import com.HipTrip.HipTrip.repository.TripRepo;
@@ -53,9 +54,10 @@ public class YelpApiController {
 
   @CrossOrigin
   @RequestMapping(path = "/hotel/save",method = RequestMethod.PUT)
-  private Trip addHotelToTrip(@RequestBody Trip trip,BusinessDetails bd){
-    Hotel dbbd = new Hotel(bd);
-    trip = tripRepo.findOne(trip.getId());
+  private Trip addHotelToTrip(@RequestBody Trip_add_hotel trip_add_hotel){
+
+    Hotel dbbd = new Hotel(trip_add_hotel.getBusinessDetails());
+    Trip trip = tripRepo.findOne(trip_add_hotel.getTrip().getId());
     List<Hotel> h = trip.getHotels();
     h.add(dbbd);
     trip.setHotels(h);

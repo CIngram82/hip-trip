@@ -183,6 +183,9 @@ public class Hotel {
     this.state = state;
   }
 
+  public Hotel() {
+  }
+
   public Hotel(BusinessDetails bd){
     this.setKey(bd.getId());
     this.setName(bd.getName());
