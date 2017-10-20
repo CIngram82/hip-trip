@@ -25,11 +25,21 @@ public class Trip {
   @OneToMany
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   private List<Hotel> hotels;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Restaurant> restaurants;
+
   @Column
   private String destination;
 
+  public void setRestaurants(List<Restaurant> restaurants) {
+    this.restaurants = restaurants;
+  }
 
-
+  public List<Restaurant> getRestaurants() {
+    return restaurants;
+  }
 
   public String getDestination() {
     return destination;
@@ -96,25 +106,6 @@ public class Trip {
   }
 
   public Trip() {
-
   }
 
-  public Trip(int budget, String destination) {
-    this.budget = budget;
-    this.destination = destination;
-  }
-
-  @Override
-  public String toString() {
-    return "Trip{" +
-        "budget=" + budget +
-        ", tripStartDate=" + tripStartDate +
-        ", tripEndDate=" + tripEndDate +
-        ", adultCount=" + adultCount +
-        ", childCount=" + childCount +
-        ", id=" + id +
-        ", hotels=" + hotels +
-        ", destination='" + destination + '\'' +
-        '}';
-  }
 }

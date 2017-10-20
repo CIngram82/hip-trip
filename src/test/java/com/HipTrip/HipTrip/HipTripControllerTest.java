@@ -1,7 +1,7 @@
 package com.HipTrip.HipTrip;
 
 
-import com.HipTrip.HipTrip.repository.BusinessDetailsRepo;
+import com.HipTrip.HipTrip.repository.HotelRepo;
 import com.HipTrip.HipTrip.repository.TripRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ public class HipTripControllerTest {
   TripRepo tripRepo;
 
   @Autowired
-  BusinessDetailsRepo businessDetailsRepo;
+  HotelRepo hotelRepo;
 
   @Autowired
 //  private
