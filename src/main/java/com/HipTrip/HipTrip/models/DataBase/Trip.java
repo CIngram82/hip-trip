@@ -96,6 +96,7 @@ public class Trip {
   }
 
   public Trip() {
+
   }
 
   public Trip(int budget, String destination) {

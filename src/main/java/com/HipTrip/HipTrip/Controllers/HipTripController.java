@@ -1,6 +1,7 @@
 package com.HipTrip.HipTrip.Controllers;
 
 
+import com.HipTrip.HipTrip.models.DataBase.Hotel;
 import com.HipTrip.HipTrip.models.DataBase.Trip;
 import com.HipTrip.HipTrip.repository.BusinessDetailsRepo;
 import com.HipTrip.HipTrip.repository.TripRepo;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class HipTripController {
@@ -21,6 +23,8 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
   private Trip startNewTrip(@RequestBody Trip trip){
+    trip.setHotels(new ArrayList<Hotel>() {
+    });
     tripRepo.save(trip);
     return trip;
   }
