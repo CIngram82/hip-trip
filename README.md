@@ -4,9 +4,4 @@ I am responsible for building the Backend in Java with the spring framework and 
 In addition to building the routes for the front to use. All this is set up and deployed on heroku.
 
 Skills I used and learned for this project.
-Java 
-JPA
-Spring 
-Spring boot
-postgresql
-heroku
+Java, JPA, Spring, Spring boot, postgresql, and heroku.
