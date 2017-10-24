@@ -19,9 +19,8 @@ public class HipTripController {
   TripRepo tripRepo;
   @Autowired
   HotelRepo hotelRepo;
-//  @Autowired
-//  UserRepo usersRepo;
 
+  //Trip routes
   @CrossOrigin
   @RequestMapping(path = "/newTrip", method = RequestMethod.POST)
   private Trip startNewTrip(@RequestBody Trip trip){
@@ -34,12 +33,11 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/trip/details", method = RequestMethod.GET)
   private ArrayList<Trip> getAllTrips(){
-    ArrayList<Trip> t = new ArrayList();
+    ArrayList<Trip> t = new ArrayList<>();
     tripRepo.findAll().forEach(t::add);
     return t;
   }
 
-//Trip roues
   @CrossOrigin
   @RequestMapping(path = "/trip/details/{id}", method = RequestMethod.GET)
   private Trip getTripDetails(@PathVariable(value = "id") int id){
@@ -88,7 +86,7 @@ public class HipTripController {
 
 
   //Restaurant routes
-  @CrossOrigin //Database
+  @CrossOrigin
   @RequestMapping(path = "/restaurant/{id}",method = RequestMethod.DELETE)
   private Trip deleteRestaurant(@PathVariable(value = "id")int id,@RequestBody Trip trip){
     tripRepo.findOne(trip.getId()).getRestaurants().remove(id);
@@ -108,5 +106,6 @@ public class HipTripController {
   }
 
 
+  //OtherPlaces routes
 
 }
