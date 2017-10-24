@@ -1,13 +1,12 @@
 package com.HipTrip.HipTrip.models.DataBase;
 
-import sun.jvm.hotspot.memory.Generation;
+import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "OtherPlace")
-public class OtherPlaces {
-
+@Table(name = "Nightlife")
+public class Nightlife {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -56,12 +55,6 @@ public class OtherPlaces {
 
   @Column
   private String state;
-
-  @Column
-  private String category;
-
-  public OtherPlaces() {
-  }
 
   public int getId() {
     return id;
@@ -191,11 +184,25 @@ public class OtherPlaces {
     this.state = state;
   }
 
-  public String getCategory() {
-    return category;
+  public Nightlife() {
   }
 
-  public void setCategory(String category) {
-    this.category = category;
+  public Nightlife(BusinessDetails bd){
+    this.setKey(bd.getId());
+    this.setName(bd.getName());
+    this.setImage_url(bd.getImage_url());
+    this.setRating(bd.getRating());
+    this.setPrice(bd.getPrice());
+    this.setDisplay_phone(bd.getDisplay_phone());
+    this.setLatitude(bd.getCoordinates().getLatitude());
+    this.setLongitude(bd.getCoordinates().getLongitude());
+    this.setAddress1(bd.getLocation().getAddress1());
+    this.setAddress2(bd.getLocation().getAddress2());
+    this.setAddress3(bd.getLocation().getAddress3());
+    this.setCity(bd.getLocation().getCity());
+    this.setZip_code(bd.getLocation().getZip_code());
+    this.setState(bd.getLocation().getState());
+    this.setUrl(bd.getUrl());
   }
+
 }

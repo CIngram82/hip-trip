@@ -28,10 +28,71 @@ public class Trip {
 
   @OneToMany
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Art> arts;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Shopping> shopping;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Attraction> attractions;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Nightlife> nightlife;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
   private List<Restaurant> restaurants;
+
+  @OneToMany
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private List<Spa> spas;
+
 
   @Column
   private String destination;
+
+  public List<Art> getArts() {
+    return arts;
+  }
+
+  public void setArts(List<Art> arts) {
+    this.arts = arts;
+  }
+
+  public List<Shopping> getShopping() {
+    return shopping;
+  }
+
+  public void setShopping(List<Shopping> shopping) {
+    this.shopping = shopping;
+  }
+
+  public List<Attraction> getAttractions() {
+    return attractions;
+  }
+
+  public void setAttractions(List<Attraction> attractions) {
+    this.attractions = attractions;
+  }
+
+  public List<Nightlife> getNightlife() {
+    return nightlife;
+  }
+
+  public void setNightlife(List<Nightlife> nightlife) {
+    this.nightlife = nightlife;
+  }
+
+  public List<Spa> getSpas() {
+    return spas;
+  }
+
+  public void setSpas(List<Spa> spas) {
+    this.spas = spas;
+  }
 
   public void setRestaurants(List<Restaurant> restaurants) {
     this.restaurants = restaurants;

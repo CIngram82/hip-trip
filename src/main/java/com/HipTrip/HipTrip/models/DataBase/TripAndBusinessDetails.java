@@ -2,11 +2,11 @@ package com.HipTrip.HipTrip.models.DataBase;
 
 import com.HipTrip.HipTrip.models.YelpAPI.BusinessDetails;
 
-public class Trip_add_place {
+public class TripAndBusinessDetails {
   private Trip trip;
   private BusinessDetails businessDetails;
 
-  public Trip_add_place() {
+  public TripAndBusinessDetails() {
   }
 
   public Trip getTrip() {
