@@ -14,9 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class YelpApiController {
-  // TODO change from hard code token to system.getenv
     private static final String TOKEN = System.getenv("YELP_API_TOKEN");
-//  private static final String TOKEN = "Bearer 5XyC6OLI1Rtqv4weHiCPPC7iobApAuAc97McQaMKd6ws4whbXBrBfevH4TWrJy0h0UWfuCHn78lM8U0mS9y3vReTcf3bkT_whgJc1ywxouNSom7UKMc_5xIdPQLdWXYx";
   @Autowired
   TripRepo tripRepo;
 
