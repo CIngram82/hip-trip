@@ -112,9 +112,9 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/save/attraction",method = RequestMethod.PUT)
   private Trip addAttractionToTrip(@RequestBody TripAndBusinessDetails trip_andBusinessDetails){
-    Art dbbd = new Art(trip_andBusinessDetails.getBusinessDetails());
+    Attraction dbbd = new Attraction(trip_andBusinessDetails.getBusinessDetails());
     Trip trip = tripRepo.findOne(trip_andBusinessDetails.getTrip().getId());
-    trip.getArts().add(dbbd);
+    trip.getAttractions().add(dbbd);
     return tripRepo.save(trip);
   }
 
