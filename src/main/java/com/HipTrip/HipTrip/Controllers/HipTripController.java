@@ -101,7 +101,7 @@ public class HipTripController {
 
   //Other save routes
   @CrossOrigin
-  @RequestMapping(path = "/save/arts",method = RequestMethod.PUT)
+  @RequestMapping(path = "/save/art",method = RequestMethod.PUT)
   private Trip addArtsToTrip(@RequestBody TripAndBusinessDetails trip_andBusinessDetails){
     Art dbbd = new Art(trip_andBusinessDetails.getBusinessDetails());
     Trip trip = tripRepo.findOne(trip_andBusinessDetails.getTrip().getId());

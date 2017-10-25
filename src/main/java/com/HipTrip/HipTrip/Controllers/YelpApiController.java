@@ -34,7 +34,7 @@ public class YelpApiController {
     return getBizDetails(id);
   }
   @CrossOrigin
-  @RequestMapping(path = "/Art/{id}",method = RequestMethod.GET)
+  @RequestMapping(path = "/art/{id}",method = RequestMethod.GET)
   private BusinessDetails getArtByID(@PathVariable(value = "id") String id){
     return getBizDetails(id);
   }
