@@ -65,9 +65,8 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
   private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-  tripRepo.findOne(trip.getId()).getHotels().remove(id);
-
-    return tripRepo.findOne(trip.getId());
+  tripRepo.findById(trip.getId()).getHotels().remove(id);
+    return tripRepo.findById(trip.getId());
   }
 
   @CrossOrigin
