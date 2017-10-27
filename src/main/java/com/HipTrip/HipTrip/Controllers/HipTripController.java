@@ -65,7 +65,8 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
   private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-  tripRepo.findById(trip.getId()).getHotels().remove(id);
+    trip.getHotels().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findById(trip.getId());
   }
 
@@ -84,7 +85,8 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/restaurant/{id}",method = RequestMethod.DELETE)
   private Trip deleteRestaurant(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getRestaurants().remove(id);
+    trip.getRestaurants().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 
@@ -149,35 +151,40 @@ public class HipTripController {
   @CrossOrigin
   @RequestMapping(path = "/arts/{id}",method = RequestMethod.DELETE)
   private Trip deleteArts(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getArts().remove(id);
+    trip.getArts().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 
   @CrossOrigin
   @RequestMapping(path = "/attraction/{id}",method = RequestMethod.DELETE)
   private Trip deleteAttraction(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getAttractions().remove(id);
+    trip.getAttractions().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 
   @CrossOrigin
   @RequestMapping(path = "/nightlife/{id}",method = RequestMethod.DELETE)
   private Trip deleteNightlife(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getNightlife().remove(id);
+    trip.getNightlife().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 
   @CrossOrigin
   @RequestMapping(path = "/shopping/{id}",method = RequestMethod.DELETE)
   private Trip deleteShopping(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getShopping().remove(id);
+    trip.getShopping().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 
   @CrossOrigin
   @RequestMapping(path = "/spa/{id}",method = RequestMethod.DELETE)
   private Trip deleteSpa(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    tripRepo.findOne(trip.getId()).getSpas().remove(id);
+    trip.getSpas().remove(id);
+    tripRepo.save(trip);
     return tripRepo.findOne(trip.getId());
   }
 }
