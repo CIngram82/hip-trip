@@ -59,7 +59,6 @@ public class YelpApiController {
   }
 
 
-
   //Search routes
   @CrossOrigin
   @RequestMapping(path = "/search/hotel", method = RequestMethod.POST)
@@ -71,7 +70,6 @@ public class YelpApiController {
     HttpEntity<String> request = new HttpEntity<>(headers);
     return template.exchange(url, HttpMethod.GET, request, YelpResponse.class).getBody();
   }
-
 
   @CrossOrigin
   @RequestMapping(path = "/search/restaurant", method = RequestMethod.POST)
@@ -85,48 +83,7 @@ public class YelpApiController {
   }
 
 
-  //Category Search routes
-  //This was the way we started doing it adding things one at a time.
-
-//  @CrossOrigin
-//  @RequestMapping(path = "/search/art", method = RequestMethod.POST)
-//  private YelpResponse getArtForLocation(@RequestBody Trip trip){
-//    String term = "galleries,festivals,museums,theater,wineries";
-//    return getCategoryYR(term , trip);
-//  }
-//
-//  @CrossOrigin
-//  @RequestMapping(path = "/search/shopping", method = RequestMethod.POST)
-//  private YelpResponse getShoppingForLocation(@RequestBody Trip trip){
-//    String term = "antiques,fashion,jewelry,outlet_stores,popupshops";
-//    return getCategoryYR(term , trip);
-//  }
-//
-//  @CrossOrigin
-//  @RequestMapping(path = "/search/attraction", method = RequestMethod.POST)
-//  private YelpResponse getAttractionForLocation(@RequestBody Trip trip){
-//    String term = "amusementparks,aquariums,bikerentals,fitness,kids_activities";
-//   return getCategoryYR(term , trip);
-//    }
-//
-//  @CrossOrigin
-//  @RequestMapping(path = "/search/nightlife", method = RequestMethod.POST)
-//  private YelpResponse getNightlifeForLocation(@RequestBody Trip trip){
-//    String term = "bars,beergardens,comedyclubs,karaoke,musicvenues";
-//    return getCategoryYR(term , trip);
-//  }
-//
-//  @CrossOrigin
-//  @RequestMapping(path = "/search/spa", method = RequestMethod.POST)
-//  private YelpResponse getSpaForLocation(@RequestBody Trip trip){
-//    String term = "barbers,spas,hair,massage,othersalons";
-//    return getCategoryYR(term , trip);
-//  }
-
-
-  //I changed over to a switch case for all category searches when we wanted to add the option to search for any
-  //of the subcategories. I had to come up with a better way then adding 25 new routes.
-
+  // Search by category.
   @CrossOrigin
   @RequestMapping(path = "/search/{category}", method = RequestMethod.POST)
   private YelpResponse getAnyForLocation(@PathVariable(value = "category") String category,@RequestBody Trip trip){
@@ -149,11 +106,13 @@ public class YelpApiController {
         break;
       default:
         // If the category is not one of the above group searches search for it by its self.
+        // We ended up not using this option.
         break;
     }
-
     return getCategoryYR(category , trip);
   }
+
+
 
   private YelpResponse getCategoryYR(String category, Trip trip){
     RestTemplate template = new RestTemplate();

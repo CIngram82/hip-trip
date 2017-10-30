@@ -61,13 +61,14 @@ public class HipTripController {
 
 
 
-  //Hotel routes
+  //Save routes
   @CrossOrigin
-  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
-  private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    trip.getHotels().remove(id);
-    tripRepo.save(trip);
-    return tripRepo.findById(trip.getId());
+  @RequestMapping(path = "/save/restaurant",method = RequestMethod.PUT)
+  private Trip addRestaurantToTrip(@RequestBody TripAndBusinessDetails trip_andBusinessDetails){
+    Restaurant dbbd = new Restaurant(trip_andBusinessDetails.getBusinessDetails());
+    Trip trip = tripRepo.findOne(trip_andBusinessDetails.getTrip().getId());
+    trip.getRestaurants().add(dbbd);
+    return tripRepo.save(trip);
   }
 
   @CrossOrigin
@@ -79,28 +80,6 @@ public class HipTripController {
     return tripRepo.save(trip);
   }
 
-
-
-  //Restaurant routes
-  @CrossOrigin
-  @RequestMapping(path = "/restaurant/{id}",method = RequestMethod.DELETE)
-  private Trip deleteRestaurant(@PathVariable(value = "id")int id,@RequestBody Trip trip){
-    trip.getRestaurants().remove(id);
-    tripRepo.save(trip);
-    return tripRepo.findOne(trip.getId());
-  }
-
-  @CrossOrigin
-  @RequestMapping(path = "/save/restaurant",method = RequestMethod.PUT)
-  private Trip addRestaurantToTrip(@RequestBody TripAndBusinessDetails trip_andBusinessDetails){
-    Restaurant dbbd = new Restaurant(trip_andBusinessDetails.getBusinessDetails());
-    Trip trip = tripRepo.findOne(trip_andBusinessDetails.getTrip().getId());
-    trip.getRestaurants().add(dbbd);
-    return tripRepo.save(trip);
-  }
-
-
-  //Other save routes
   @CrossOrigin
   @RequestMapping(path = "/save/art",method = RequestMethod.PUT)
   private Trip addArtsToTrip(@RequestBody TripAndBusinessDetails trip_andBusinessDetails){
@@ -147,7 +126,24 @@ public class HipTripController {
   }
 
 
-  // Other Delete routes
+
+  //Delete routes
+  @CrossOrigin
+  @RequestMapping(path = "/hotel/{id}",method = RequestMethod.DELETE)
+  private Trip deleteHotel(@PathVariable(value = "id")int id,@RequestBody Trip trip){
+    trip.getHotels().remove(id);
+    tripRepo.save(trip);
+    return tripRepo.findById(trip.getId());
+  }
+
+  @CrossOrigin
+  @RequestMapping(path = "/restaurant/{id}",method = RequestMethod.DELETE)
+  private Trip deleteRestaurant(@PathVariable(value = "id")int id,@RequestBody Trip trip){
+    trip.getRestaurants().remove(id);
+    tripRepo.save(trip);
+    return tripRepo.findOne(trip.getId());
+  }
+
   @CrossOrigin
   @RequestMapping(path = "/arts/{id}",method = RequestMethod.DELETE)
   private Trip deleteArts(@PathVariable(value = "id")int id,@RequestBody Trip trip){
